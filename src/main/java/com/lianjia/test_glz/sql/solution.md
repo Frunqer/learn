@@ -15,3 +15,4 @@ SELECT s.s_id,s.s_name,avg(sc.s_score) AS 'avg_score' FROM student s
     JOIN score sc ON s.s_id = sc.s_id 
 GROUP BY s.s_id HAVING avg_score >= 60;
 ```
+![运行结果](https://github.com/Frunqer/learn/blob/master/src/main/webapp/images/sql/sql_solution2.jpg  "运行结果")
