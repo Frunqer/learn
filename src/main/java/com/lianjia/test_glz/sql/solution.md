@@ -9,6 +9,7 @@ WHERE
     AND sc2.c_id = '02'
     AND sc1.s_score > sc2.s_score;
 ```
+![运行结果](https://github.com/Frunqer/learn/blob/master/src/main/webapp/images/sql/sql_solution1.jpg  "运行结果")
 ### 2、查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩
 ```sql
 SELECT s.s_id,s.s_name,avg(sc.s_score) AS 'avg_score' FROM student s
