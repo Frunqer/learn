@@ -1,0 +1,172 @@
+const http = require('http')
+const querystring = require('querystring')
+
+// 设置服务器端口
+const PORT = 8000
+// 创建服务器
+const server = http.createServer((req, res) => {
+    // 获取请求的url
+    const url = req.url
+    // 获取请求的method
+    const method = req.method
+    // 解析URL，把url中?后面的参数转换为对象
+    const query = querystring.parse(url.split('?')[1])
+    // 设置返回数据的Content-type为JSON
+    res.setHeader('Content-type', 'application/json')
+
+    // 返回的数据
+    let resData = result()
+    // 将对象转换为json字符串
+    res.end(JSON.stringify(resData));
+    return
+    /*// 如果没有匹配，则返回404页面
+    res.writeHead(200, {'text/html'});
+    res.write('404 Not Found\n')
+    res.end()
+    // 返回的内容            <--删除
+    res.end('hello nodejs') < --删除*/
+});
+
+//生成从minNum到maxNum的随机数
+function randomNum(minNum, maxNum) {
+    switch (arguments.length) {
+        case 1:
+            return parseInt(Math.random() * minNum + 1, 10);
+            break;
+        case 2:
+            return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+// 11.20
+//生成从minNum到maxNum的随机数
+function randomNum(minNum, maxNum) {
+    return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+}
+
+/**
+ *获取当前时间
+ *format=1精确到分
+ */
+function getCurrentDate(format) {
+    var now = new Date();
+    var year = now.getFullYear(); //得到年份
+    var month = now.getMonth(); //得到月份
+    var date = now.getDate(); //得到日期
+    var hour = now.getHours(); //得到小时
+    var minu = now.getMinutes(); //得到分钟
+    var sec = now.getSeconds(); //得到秒
+    month = month + 1;
+    if (month < 10) month = "0" + month;
+    if (date < 10) date = "0" + date;
+    if (hour < 10) hour = "0" + hour;
+    if (minu < 10) minu = "0" + minu;
+    if (sec < 10) sec = "0" + sec;
+    var time = "";
+    //精确到分
+    if (format == 1) {
+        time = year + "-" + month + "-" + date + " " + hour + ":" + minu + ":" + sec;
+    }
+    return time;
+}
+
+function result() {
+    time = getCurrentDate(1)
+    res = {
+        error: 0,
+        message: 'success',
+        data: {
+            roadInside:[{
+                time: time,
+                parking_lot_name: '东万宜巷停车场',
+                total_remaining_parking_space: randomNum(10, 20)
+            }, {
+                time: time,
+                parking_lot_name: '南昌洛阳路长运汽车站',
+                total_remaining_parking_space: randomNum(20, 40)
+            }, {
+                time: time,
+                parking_lot_name: '花园角停车场',
+                total_remaining_parking_space: randomNum(10, 25)
+            }, {
+                time: time,
+                parking_lot_name: '滕王阁东停车场',
+                total_remaining_parking_space: randomNum(0, 10)
+            }, {
+                time: time,
+                parking_lot_name: '孺子路停车场',
+                total_remaining_parking_space: randomNum(0, 5)
+            }, {
+                time: time,
+                parking_lot_name: '豫章公共停车场',
+                total_remaining_parking_space: randomNum(8, 15)
+            }, {
+                time: time,
+                parking_lot_name: '禧悦丽尊酒店',
+                total_remaining_parking_space: randomNum(20, 30)
+            }, {
+                time: time,
+                parking_lot_name: '天泽园停车场',
+                total_remaining_parking_space: randomNum(10, 30)
+            }, {
+                time: time,
+                parking_lot_name: '南昌老火车站',
+                total_remaining_parking_space: randomNum(1, 3)
+            }, {
+                time: time,
+                parking_lot_name: '爱国路公共停车场',
+                total_remaining_parking_space: randomNum(5, 30)
+            }, ],
+            roadOutside:[{
+                time: time,
+                parking_lot_name: '江报路雅苑东路至绿茵路（中）',
+                total_remaining_parking_space: randomNum(5, 9)
+            }, {
+                time: time,
+                parking_lot_name: '雅苑东路红谷中大道至江报路（南）',
+                total_remaining_parking_space: randomNum(1, 9)
+            }, {
+                time: time,
+                parking_lot_name: '广电路联发广场',
+                total_remaining_parking_space: randomNum(10, 19)
+            }, {
+                time: time,
+                parking_lot_name: '鹿璟名居',
+                total_remaining_parking_space: randomNum(0, 10)
+            }, {
+                time: time,
+                parking_lot_name: '中环路五中',
+                total_remaining_parking_space: randomNum(0, 5)
+            }, {
+                time: time,
+                parking_lot_name: '翠街全路段',
+                total_remaining_parking_space: randomNum(9, 10)
+            }, {
+                time: time,
+                parking_lot_name: '南昌广播电视中心',
+                total_remaining_parking_space: randomNum(0, 10)
+            }, {
+                time: time,
+                parking_lot_name: '天泽园停车场',
+                total_remaining_parking_space: randomNum(10, 30)
+            }, {
+                time: time,
+                parking_lot_name: '喜来登',
+                total_remaining_parking_space: randomNum(1, 3)
+            }, {
+                time: time,
+                parking_lot_name: '广电支路路未来谷',
+                total_remaining_parking_space: randomNum(5, 8)
+            }, ]
+        }
+    }
+    return res
+}
+
+// 设置服务器端口
+server.listen(PORT)
+console.log('node-server started at port http://localhost:' + PORT)
